@@ -3,7 +3,6 @@ import React from 'react'
 
 export default function Dashboard() {
   return (
-    <div className=''>
       <div>
         {/* Header */}
         <div className='bg-amber-700 py-4 border-b-4 border-amber-800 shadow-lg'>
@@ -25,6 +24,5 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-    </div>
   )
 }
