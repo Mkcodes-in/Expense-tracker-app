@@ -7,7 +7,7 @@ export default function DashboardHistory() {
   ];
 
   return (
-    <div className="flex flex-col gap-6 p-4 bg-white rounded-lg shadow-md">
+    <div className="flex flex-col gap-6 p-4 bg-white rounded-lg shadow-md text-black">
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-bold text-gray-800 flex flex-col">Transaction History
           <span className='text-sm text-gray-400 font-semibold'>Your recent spending activities</span></h1>
@@ -38,7 +38,7 @@ export default function DashboardHistory() {
             <div className="text-right">
               <div className="font-semibold text-red-600">-₹{transaction.amount}</div>
               <button className="text-gray-400 hover:text-red-500 text-sm mt-1">
-                Remove
+                <Trash2 />
               </button>
             </div>
           </div>

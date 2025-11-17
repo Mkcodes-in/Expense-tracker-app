@@ -1,4 +1,38 @@
+import type React from "react";
+import { useState } from "react";
+
 export default function Form() {
+  const [formData, setFormData] = useState({
+    description: '',
+    amount: '',
+    category: '',
+    date: ''
+  });
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
+    if (!formData.description || !formData.amount || !formData.category || !formData.date) {
+      return;
+    }
+
+    console.log("Expense Added:", formData);
+
+    setFormData({
+      description: "",
+      amount: "",
+      category: "",
+      date: ""
+    });
+  }
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  }
+
   return (
     <div className="p-6 bg-white rounded-lg shadow-md border border-amber-100 max-w-md mx-auto text-black">
       <div className="text-center mb-6">
@@ -6,15 +40,20 @@ export default function Form() {
         <p className="text-gray-600">Track your spending</p>
       </div>
 
-      <form className="flex flex-col gap-5">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-5">
         <div className="flex flex-col">
           <label htmlFor="description" className="text-sm font-medium text-gray-700 mb-2">
             Description
           </label>
           <input
+            name="description"
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors duration-200"
             id="description"
             type="text"
+            value={formData.description}
+            onChange={handleChange}
             placeholder="What did you spend on?"
           />
         </div>
@@ -30,6 +69,8 @@ export default function Form() {
               type="number"
               name="amount"
               id="amount"
+              value={formData.amount}
+              onChange={handleChange}
               placeholder="0.00"
             />
           </div>
@@ -43,7 +84,9 @@ export default function Form() {
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors duration-200"
             name="category"
             id="category"
-          >   
+            value={formData.category}
+            onChange={handleChange}
+          >
             <option value="">Select a category</option>
             <option value="food">Food & Dining</option>
             <option value="transport">Transportation</option>
@@ -61,7 +104,10 @@ export default function Form() {
           <input
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors duration-200"
             type="date"
+            name="date"
             id="date"
+            value={formData.date}
+            onChange={handleChange}
           />
         </div>
 
