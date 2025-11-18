@@ -1,7 +1,11 @@
+import { add_expense } from "@/store/Slice";
 import type React from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 export default function Form() {
+  const dispatch = useDispatch();
+  
   const [formData, setFormData] = useState({
     description: '',
     amount: '',
@@ -16,7 +20,13 @@ export default function Form() {
       return;
     }
 
-    console.log("Expense Added:", formData);
+    dispatch(add_expense({
+      id: Date.now(), 
+      description: formData.description,
+      amount: formData.amount,
+      category: formData.category,
+      date: formData.date
+    }));
 
     setFormData({
       description: "",
