@@ -11,7 +11,7 @@ const ExpenseTrack = createSlice({
             state.push(action.payload)
         }, 
         remove_expense: (state, action) => {
-
+            return state.filter(itm => itm.id !== action.payload);
         }
     }
 });

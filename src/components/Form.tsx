@@ -5,10 +5,10 @@ import { useDispatch } from "react-redux";
 
 export default function Form() {
   const dispatch = useDispatch();
-  
+
   const [formData, setFormData] = useState({
     description: '',
-    amount: '',
+    amount: 0,
     category: '',
     date: ''
   });
@@ -21,7 +21,7 @@ export default function Form() {
     }
 
     dispatch(add_expense({
-      id: Date.now(), 
+      id: Date.now(),
       description: formData.description,
       amount: formData.amount,
       category: formData.category,
@@ -30,7 +30,7 @@ export default function Form() {
 
     setFormData({
       description: "",
-      amount: "",
+      amount: 0,
       category: "",
       date: ""
     });

@@ -1,49 +1,67 @@
-import { Wallet, Trash2 } from 'lucide-react';
+import { remove_expense } from '@/store/Slice';
+import { Wallet, Trash2, Filter } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import type { rootState } from '@/store/store';
 
 export default function DashboardHistory() {
-  const transactions = [
-    { id: 1, date: '2024-01-15', description: 'Groceries', category: 'Food', amount: 2500 },
-    { id: 2, date: '2024-01-14', description: 'Bus fare', category: 'Transport', amount: 500 },
-  ];
+  const dispatch = useDispatch();
+  const transactions = useSelector((state: rootState) => state.expense);
 
   return (
-    <div className="flex flex-col gap-6 p-4 bg-white rounded-lg shadow-md text-black">
-      <div className="flex justify-between items-center">
-        <h1 className="text-xl font-bold text-gray-800 flex flex-col">Transaction History
-          <span className='text-sm text-gray-400 font-semibold'>Your recent spending activities</span></h1>
-        <select className="px-3 py-1 border border-gray-300 rounded text-sm">
-          <option>All</option>
-          <option>This Week</option>
-        </select>
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 text-black">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <h1 className="text-xl font-bold text-gray-900">Transaction History</h1>
+          <p className="text-gray-500 text-sm mt-1">Your recent spending activities</p>
+        </div>
+        <div className="flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-lg">
+          <Filter className="w-4 h-4 text-gray-600" />
+          <select className="bg-transparent text-sm outline-none">
+            <option>All</option>
+            <option>This Week</option>
+          </select>
+        </div>
       </div>
 
-      <div className="space-y-3">
-        {transactions.map((transaction) => (
-          <div key={transaction.id} className="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
-                <Wallet className="w-5 h-5 text-amber-600" />
-              </div>
-              <div>
-                <div className="font-medium text-gray-900">{transaction.description}</div>
-                <div className="flex items-center gap-2 text-sm text-gray-500">
-                  <span>{new Date(transaction.date).toLocaleDateString()}</span>
-                  <span>•</span>
-                  <span className="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full text-xs">
-                    {transaction.category}
-                  </span>
+      {/* Transactions */}
+      {transactions.length === 0 ? (
+        <div className="text-center py-12 text-gray-500">
+          <Wallet className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+          <p>No transactions yet</p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {transactions.map((transaction) => (
+            <div key={transaction.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-amber-50 transition-colors">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
+                  <Wallet className="w-6 h-6 text-amber-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900">{transaction.description}</h3>
+                  <div className="flex items-center gap-3 text-sm text-gray-600 mt-1">
+                    <span>{new Date(transaction.date).toLocaleDateString()}</span>
+                    <span className="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-xs font-medium">
+                      {transaction.category}
+                    </span>
+                  </div>
                 </div>
               </div>
+              
+              <div className="flex items-center gap-4">
+                <span className="font-bold text-red-600 text-lg">-₹{transaction.amount}</span>
+                <button
+                  onClick={() => dispatch(remove_expense(transaction.id))}
+                  className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
             </div>
-            <div className="text-right">
-              <div className="font-semibold text-red-600">-₹{transaction.amount}</div>
-              <button className="text-gray-400 hover:text-red-500 text-sm mt-1">
-                <Trash2 />
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
