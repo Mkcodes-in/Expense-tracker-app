@@ -1,4 +1,3 @@
-import type { rootState } from '@/store/store';
 import { highestCategory } from '@/utils/highestCategory';
 import { totalAmount } from '@/utils/totalAmount';
 import { totalExpense } from '@/utils/totalExpense';
