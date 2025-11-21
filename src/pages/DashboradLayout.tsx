@@ -1,7 +1,6 @@
 import Dashboard from '@/components/Dashboard'
 import DashboardMain from '@/components/DashboardMain'
 import Footer from '@/components/Footer'
-import React from 'react'
 
 export default function Dashborad() {
   return (

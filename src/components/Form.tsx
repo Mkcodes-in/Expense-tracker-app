@@ -1,6 +1,7 @@
 import { add_expense } from "@/store/Slice";
 import type React from "react";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 
 export default function Form() {
@@ -17,6 +18,11 @@ export default function Form() {
     e.preventDefault();
 
     if (!formData.description || !formData.amount || !formData.category || !formData.date) {
+      toast.error("All fields are required!!");
+      return;
+    }
+    if (formData.amount <= 0) {
+      toast.error("Amount must be greater than 0!");
       return;
     }
 
@@ -27,6 +33,8 @@ export default function Form() {
       category: formData.category,
       date: formData.date
     }));
+
+    toast.success("Expense Added Successfully");
 
     setFormData({
       description: "",
