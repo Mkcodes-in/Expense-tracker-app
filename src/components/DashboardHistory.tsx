@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { rootState } from '@/store/store';
 import React, { useState } from 'react';
 import { CategoryByFilter } from '@/utils/sortByCategory';
+import toast from 'react-hot-toast';
 
 export default function DashboardHistory() {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ export default function DashboardHistory() {
               setFilter(e.target.value)
             }
             className="bg-transparent text-sm outline-none cursor-pointer">
-            <option>All</option>
+            <option value={""}>All</option>
             <option value="food">Food & Dining</option>
             <option value="transport">Transportation</option>
             <option value="shopping">Shopping</option>
@@ -65,7 +66,10 @@ export default function DashboardHistory() {
               <div className="flex items-center gap-4">
                 <span className="font-bold text-red-600 text-lg">-₹{transaction.amount}</span>
                 <button
-                  onClick={() => dispatch(remove_expense(transaction.id))}
+                  onClick={() => {
+                    dispatch(remove_expense(transaction.id));
+                    toast.success("Expense Deleted Successfully!!");
+                  }}
                   className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
                 >
                   <Trash2 className="w-4 h-4" />
