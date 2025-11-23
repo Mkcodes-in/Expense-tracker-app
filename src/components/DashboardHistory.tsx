@@ -13,9 +13,9 @@ export default function DashboardHistory() {
   const newTransaction = CategoryByFilter(transactions, filter);
   
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 text-black">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 text-black overflow-hidden">
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-wrap gap-2 justify-between items-center mb-6">
         <div>
           <h1 className="text-xl font-bold text-gray-900">Transaction History</h1>
           <p className="text-gray-500 text-sm mt-1">Your recent spending activities</p>
@@ -47,14 +47,14 @@ export default function DashboardHistory() {
       ) : (
         <div className="space-y-3">
           {newTransaction.map((transaction) => (
-            <div key={transaction.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-amber-50 transition-colors">
+            <div key={transaction.id} className="flex flex-wrap gap-2 items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-amber-50 transition-colors">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
                   <Wallet className="w-6 h-6 text-amber-600" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900">{transaction.description}</h3>
-                  <div className="flex items-center gap-3 text-sm text-gray-600 mt-1">
+                  <div className="flex items-center gap-3 text-xs md:text-sm text-gray-600 mt-1">
                     <span>{new Date(transaction.date).toLocaleDateString()}</span>
                     <span className="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-xs font-medium">
                       {transaction.category}

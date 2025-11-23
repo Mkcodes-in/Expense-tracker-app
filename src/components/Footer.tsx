@@ -5,7 +5,7 @@ export default function Footer() {
     return (
         <footer className='bg-amber-800 border-t-4 border-amber-900 text-amber-50'>
             <div className='max-w-7xl mx-auto px-4 sm:px-6 md:px-6'>
-                <div className='flex items-center justify-between py-3'>
+                <div className='flex flex-wrap gap-3 items-center justify-between py-3'>
                     <div className='flex items-center space-x-2'>
                         <div className='p-1.5 bg-amber-700 rounded-md'>
                             <Wallet className='w-4 h-4 text-amber-100' />

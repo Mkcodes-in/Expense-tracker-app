@@ -8,8 +8,8 @@ export default function Dashborad() {
       <Dashboard />
       <div className='flex-1 overflow-y-auto'>
         <DashboardMain />
+        <Footer />
       </div>
-      <Footer />
     </div>
   )
 }

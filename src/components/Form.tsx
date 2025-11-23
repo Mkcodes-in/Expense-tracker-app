@@ -6,12 +6,13 @@ import { useDispatch } from "react-redux";
 
 export default function Form() {
   const dispatch = useDispatch();
+  const today = new Date(Date.now()).toISOString().slice(0, 10);
 
   const [formData, setFormData] = useState({
     description: '',
     amount: 0,
     category: '',
-    date: ''
+    date: today
   });
 
   function handleSubmit(e: React.FormEvent) {
@@ -40,7 +41,7 @@ export default function Form() {
       description: "",
       amount: 0,
       category: "",
-      date: ""
+      date: today
     });
   }
 
